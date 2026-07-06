@@ -1,0 +1,193 @@
+/* AlchemII v2 — shared styles */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --ink: #000000;
+    --muted: #555555;
+    --rule: #e6e6e6;
+    --bg: #ffffff;
+    --serif: "Times New Roman", Times, serif;
+    --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    font-family: var(--sans);
+    background-color: var(--bg);
+    color: var(--muted);
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* ---------- Wordmark ---------- */
+.wordmark {
+    font-family: var(--serif);
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    text-transform: lowercase;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* ---------- Landing ---------- */
+.landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+}
+
+.landing .wordmark {
+    font-size: clamp(2.6rem, 8vw, 4.5rem);
+    margin-bottom: 40px;
+}
+
+.landing nav {
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.landing nav a {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--ink);
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    padding-bottom: 2px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+}
+
+.landing nav a:hover {
+    border-bottom-color: var(--ink);
+}
+
+/* ---------- Content pages ---------- */
+.page {
+    max-width: 640px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+}
+
+.page header {
+    text-align: center;
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--rule);
+}
+
+.page header .wordmark {
+    font-size: 1.8rem;
+}
+
+.page h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    color: var(--ink);
+    font-size: 2rem;
+    margin-bottom: 24px;
+}
+
+.page h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    color: var(--ink);
+    font-size: 1.3rem;
+    margin: 36px 0 12px;
+}
+
+.page p {
+    font-size: 1.08rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+}
+
+.page ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.page li {
+    font-size: 1.08rem;
+    line-height: 1.7;
+    padding-left: 20px;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.page li::before {
+    content: "\2014";           /* em dash */
+    position: absolute;
+    left: 0;
+    color: var(--ink);
+}
+
+.formula {
+    font-family: var(--serif);
+    color: var(--ink);
+}
+
+a.email {
+    color: #0000EE;
+    text-decoration: none;
+}
+
+a.email:hover {
+    text-decoration: underline;
+}
+
+/* placeholder — remove the styling once real copy is in */
+.todo {
+    color: #b25b00;
+    font-style: italic;
+}
+
+/* ---------- Sub-navigation between pages ---------- */
+.subnav {
+    display: flex;
+    gap: 28px;
+    justify-content: center;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+.subnav a {
+    font-family: var(--serif);
+    font-size: 1rem;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease;
+}
+
+.subnav a:hover {
+    border-bottom-color: var(--ink);
+}
+
+.subnav a[aria-current="page"] {
+    color: var(--muted);
+    pointer-events: none;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 48px;
+    font-family: var(--serif);
+    color: var(--ink);
+    text-decoration: none;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
