@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>alchemii — logo lab</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #0a0a0a; --muted: #6b6b6b; --line: #e8e8e8; --bg: #ffffff;
+    --ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  body { font-family: var(--ui); background: var(--bg); color: var(--ink); line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .container { max-width: 900px; margin: 0 auto; padding: 64px 28px 120px; }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  h1 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .lead { color: var(--muted); max-width: 62ch; }
+  .sect { margin-top: 56px; }
+  .sect h2 { font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-weight: 700; margin-bottom: 18px; }
+
+  /* Side-by-side original vs rebuild */
+  .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .panel { border: 1px solid var(--line); border-radius: 14px; padding: 32px; text-align: center; background: #fbfbfb; }
+  .panel img, .panel svg { width: 180px; height: 180px; color: var(--ink); }
+  .panel .tag { display: block; margin-top: 16px; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+
+  /* Size ramp */
+  .ramp { display: flex; align-items: flex-end; gap: 32px; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 14px; padding: 36px; background: #fbfbfb; }
+  .ramp svg { color: var(--ink); display: block; }
+  .s16 { width: 16px; height: 16px; } .s24 { width: 24px; height: 24px; }
+  .s40 { width: 40px; height: 40px; } .s64 { width: 64px; height: 64px; }
+  .s96 { width: 96px; height: 96px; }
+  .ramp .cell { text-align: center; } .ramp .cell span { display:block; margin-top: 8px; font-size: 0.7rem; color: var(--muted); }
+
+  /* Backgrounds */
+  .bgs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .bg { border-radius: 14px; padding: 40px; text-align: center; }
+  .bg svg { width: 120px; height: 120px; }
+  .bg.light { background: #fff; border: 1px solid var(--line); color: #0a0a0a; }
+  .bg.dark { background: #0a0a0a; color: #fff; }
+  .bg.accent { background: #0f766e; color: #fff; }
+
+  /* Lockup */
+  .lockup { display: flex; align-items: center; gap: 24px; border: 1px solid var(--line); border-radius: 14px; padding: 32px; background: #fbfbfb; }
+  .lockup svg { width: 72px; height: 72px; color: var(--ink); flex: 0 0 auto; }
+  .lockup .wm { font-family: "Times New Roman", Times, serif; font-size: 2.4rem; letter-spacing: 0.03em; }
+  .hint { margin-top: 14px; font-size: 0.85rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="eyebrow">alchemii · branding</div>
+  <h1>Logo lab</h1>
+  <p class="lead">The symbol, rebuilt as a clean, recolorable SVG — a monoline lab flask
+  crossed with a hexagon (carbon), a circle (atom/hydrogen), and a triangle, joined by
+  nodes. Everything below is one vector file scaling losslessly; change one CSS color and
+  the whole mark recolors.</p>
+
+  <div class="sect">
+    <h2>Original PNG vs. SVG rebuild</h2>
+    <div class="compare">
+      <div class="panel">
+        <img src="../../AlchemII_logo_symbol.png" alt="Original logo PNG">
+        <span class="tag">Original (raster)</span>
+      </div>
+      <div class="panel" id="p-rebuild">
+        <span class="tag">Rebuild (vector)</span>
+      </div>
+    </div>
+    <p class="hint">Nudge-able: every coordinate lives in <code>alchemii-symbol.svg</code>. Tell me
+    what's off — node size, stroke weight, circle size, spacing — and I'll adjust.</p>
+  </div>
+
+  <div class="sect">
+    <h2>Scales cleanly — favicon to billboard</h2>
+    <div class="ramp" id="ramp"></div>
+  </div>
+
+  <div class="sect">
+    <h2>On any background</h2>
+    <div class="bgs" id="bgs"></div>
+  </div>
+
+  <div class="sect">
+    <h2>Lockup (current serif wordmark — swap via the type explorer)</h2>
+    <div class="lockup">
+      <span id="lk"></span>
+      <span class="wm">alchemii</span>
+    </div>
+    <p class="hint">See <a href="../typography/type-explorer.html">the typography explorer</a> to trade the serif for a modern face.</p>
+  </div>
+</div>
+
+<script>
+const SYMBOL = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M52 3 L93 3 L93 83 L120 177 L25 177 L52 83 Z"/>
+    <path d="M100 124 L77 83 L30 83 L6 124 L30 165 L77 165 Z"/>
+    <circle cx="138" cy="74" r="60"/>
+    <path d="M123 131 L176 178 L84 178 Z"/>
+  </g>
+  <g fill="currentColor"><circle cx="74" cy="83" r="9"/><circle cx="123" cy="131" r="9"/></g>
+</svg>`;
+
+document.getElementById('p-rebuild').insertAdjacentHTML('afterbegin', SYMBOL);
+document.getElementById('lk').innerHTML = SYMBOL;
+
+document.getElementById('ramp').innerHTML = [16,24,40,64,96].map(s =>
+  `<div class="cell"><span class="s${s}">${SYMBOL}</span><span>${s}px</span></div>`).join('');
+
+document.getElementById('bgs').innerHTML =
+  ['light','dark','accent'].map(c => `<div class="bg ${c}">${SYMBOL}</div>`).join('');
+</script>
+</body>
+</html>

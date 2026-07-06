@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>alchemii — typography explorer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;800&family=Manrope:wght@400;700;800&family=Outfit:wght@300;500;700&family=Archivo:wght@400;700;900&family=Familjen+Grotesk:wght@400;700&family=Chivo:wght@400;700;900&family=Syne:wght@600;700;800&family=Unbounded:wght@400;600;800&family=Bricolage+Grotesque:wght@400;700;800&family=Big+Shoulders+Display:wght@500;700;900&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,900&family=Instrument+Serif&family=Newsreader:opsz,wght@6..72,400;6..72,600&family=DM+Serif+Display&family=Spectral:wght@400;700&family=Space+Mono:wght@400;700&family=JetBrains+Mono:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --ink: #0a0a0a;
+    --muted: #6b6b6b;
+    --line: #e8e8e8;
+    --bg: #ffffff;
+    --card: #fbfbfb;
+    --accent: #c2410c;
+    --ui: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  body {
+    font-family: var(--ui);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 900px; margin: 0 auto; padding: 64px 28px 120px; }
+
+  /* Intro */
+  .intro { border-bottom: 1px solid var(--line); padding-bottom: 40px; margin-bottom: 12px; }
+  .eyebrow { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px; }
+  .intro h1 { font-family: var(--ui); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+  .intro p { color: var(--muted); max-width: 62ch; font-size: 1.02rem; }
+  .note { margin-top: 18px; font-size: 0.85rem; color: var(--muted); background: #fff7ed; border: 1px solid #fed7aa; border-radius: 8px; padding: 10px 14px; display: inline-block; }
+
+  /* Lockups with the symbol */
+  .lockups { display: grid; gap: 16px; grid-template-columns: 1fr; margin: 40px 0 20px; }
+  .lockup { display: flex; align-items: center; gap: 22px; padding: 26px 28px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); }
+  .lockup svg { width: 58px; height: 58px; flex: 0 0 auto; color: var(--ink); }
+  .lockup .name { font-size: 2rem; line-height: 1; color: var(--ink); }
+  .lockup .lbl { margin-left: auto; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* Category headers */
+  .cat { margin: 56px 0 8px; font-size: 0.82rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); font-weight: 700; }
+  .cat span { color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; }
+
+  /* Specimen cards */
+  .grid { display: grid; gap: 14px; }
+  .card { border: 1px solid var(--line); border-radius: 14px; padding: 26px 28px; background: var(--card); position: relative; }
+  .card.rec { border-color: #fdba74; background: #fffbf7; }
+  .card .meta { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .card .fname { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .card .fnote { font-size: 0.85rem; color: var(--muted); }
+  .badge { font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; background: var(--accent); border-radius: 20px; padding: 3px 9px; font-weight: 600; }
+  .display { color: var(--ink); line-height: 1; margin-bottom: 12px; word-break: break-word; }
+  .word { font-size: clamp(2.4rem, 7vw, 4rem); display: block; }
+  .full { font-size: clamp(1rem, 3vw, 1.5rem); display: block; color: #222; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="intro">
+    <div class="eyebrow">alchemii · branding</div>
+    <h1>Typography explorer</h1>
+    <p>The Times New Roman wordmark reads a little humble for a hard-tech company.
+    Here are distinctive typefaces for <strong>alchemii</strong> and
+    <strong>alchemii conversion technologies</strong> — modern grotesques, bold
+    display faces, contemporary serifs (yes, serifs can read as tech now), and
+    technical monospaces. My picks are flagged. Click through and tell me which
+    direction feels right; we'll lock one in and build a proper wordmark.</p>
+    <div class="note">These specimens load from Google Fonts — you'll need an internet
+    connection for them to render in their true typeface (otherwise they fall back to a system font).</div>
+  </div>
+
+  <!-- Lockup previews pairing the symbol with three shortlisted faces -->
+  <div class="lockups" id="lockups"></div>
+
+  <div id="specimens"></div>
+
+</div>
+
+<script>
+// The recreated symbol (inline so lockups can recolor it)
+const SYMBOL = `<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <g fill="none" stroke="currentColor" stroke-width="5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M52 3 L93 3 L93 83 L120 177 L25 177 L52 83 Z"/>
+    <path d="M100 124 L77 83 L30 83 L6 124 L30 165 L77 165 Z"/>
+    <circle cx="138" cy="74" r="60"/>
+    <path d="M123 131 L176 178 L84 178 Z"/>
+  </g>
+  <g fill="currentColor"><circle cx="74" cy="83" r="9"/><circle cx="123" cy="131" r="9"/></g>
+</svg>`;
+
+const SPECIMENS = [
+  // category, name, css font-family, weight, letter-spacing, note, recommended
+  ['Modern grotesque & geometric sans', [
+    ['Space Grotesk', "'Space Grotesk'", 500, '-0.01em', 'Techy, engineered, a little quirky. Reads deep-tech without trying hard.', true],
+    ['Sora', "'Sora'", 600, '-0.01em', 'Clean geometric startup sans — confident and neutral.', false],
+    ['Manrope', "'Manrope'", 700, '-0.02em', 'Friendly modern geometric; great for body + wordmark harmony.', false],
+    ['Outfit', "'Outfit'", 500, '0em', 'Even, minimal, contemporary. Very calm.', false],
+    ['Archivo', "'Archivo'", 900, '-0.01em', 'Sturdy industrial grotesque; heavy weight reads grounded and serious.', false],
+    ['Familjen Grotesk', "'Familjen Grotesk'", 700, '-0.01em', 'Swiss-modern with subtle character.', false],
+    ['Chivo', "'Chivo'", 900, '-0.02em', 'Sturdy grotesque; heavy weight reads bold and serious.', false],
+  ]],
+  ['Distinctive display', [
+    ['Syne', "'Syne'", 700, '-0.01em', 'Art-meets-tech, unmistakable. Bold point of view — pairs well with the geometric symbol.', true],
+    ['Unbounded', "'Unbounded'", 600, '-0.01em', 'Rounded-geometric and futuristic. Loud, memorable.', false],
+    ['Bricolage Grotesque', "'Bricolage Grotesque'", 700, '-0.01em', 'Trendy, editorial, characterful without being gimmicky.', false],
+    ['Big Shoulders Display', "'Big Shoulders Display'", 700, '0.01em', 'Tall, industrial, condensed — engineering signage energy.', false],
+  ]],
+  ['Contemporary serif — the "Claude" direction', [
+    ['Fraunces', "'Fraunces'", 600, '-0.005em', 'Modern high-contrast serif with warmth and wit. Smart, premium, distinctive — my serif pick.', true],
+    ['Instrument Serif', "'Instrument Serif'", 400, '0em', 'Elegant editorial serif; airy and refined.', false],
+    ['Newsreader', "'Newsreader'", 600, '0em', 'Literary, trustworthy, understated authority.', false],
+    ['DM Serif Display', "'DM Serif Display'", 400, '0em', 'High-contrast classic display serif; stately.', false],
+    ['Spectral', "'Spectral'", 700, '0em', 'Calm, contemporary serif that still reads modern.', false],
+  ]],
+  ['Technical monospace', [
+    ['Space Mono', "'Space Mono'", 700, '-0.02em', 'Lab-notebook / terminal energy. Signals engineering credibility.', false],
+    ['JetBrains Mono', "'JetBrains Mono'", 800, '-0.03em', 'Crisp developer monospace; precise and technical.', false],
+  ]],
+];
+
+const RECS = [
+  ["'Space Grotesk'", 500, '-0.01em'],
+  ["'Syne'", 700, '-0.01em'],
+  ["'Fraunces'", 600, '-0.005em'],
+];
+
+// Pick a sensible generic fallback so a font that fails to load never masquerades as Times
+function generic(cat) {
+  if (/serif/i.test(cat)) return 'serif';
+  if (/mono/i.test(cat)) return 'monospace';
+  return 'sans-serif';
+}
+
+// Build lockups (recommendations are all sans/serif; give each a matching fallback)
+const RECGEN = ['sans-serif', 'sans-serif', 'serif'];
+document.getElementById('lockups').innerHTML = RECS.map(([fam, wt, ls], i) => `
+  <div class="lockup">
+    ${SYMBOL}
+    <span class="name" style="font-family:${fam},${RECGEN[i]};font-weight:${wt};letter-spacing:${ls}">alchemii</span>
+    <span class="lbl">${fam.replace(/'/g,'')}</span>
+  </div>`).join('');
+
+// Build specimen sections
+document.getElementById('specimens').innerHTML = SPECIMENS.map(([cat, items]) => `
+  <div class="cat">${cat}</div>
+  <div class="grid">
+    ${items.map(([name, fam, wt, ls, note, rec]) => `
+      <div class="card ${rec ? 'rec' : ''}">
+        <div class="meta">
+          <span class="fname">${name}</span>
+          ${rec ? '<span class="badge">recommended</span>' : ''}
+          <span class="fnote">${note}</span>
+        </div>
+        <div class="display" style="font-family:${fam},${generic(cat)};font-weight:${wt};letter-spacing:${ls}">
+          <span class="word">alchemii</span>
+          <span class="full">alchemii conversion technologies</span>
+        </div>
+      </div>`).join('')}
+  </div>`).join('');
+</script>
+</body>
+</html>
